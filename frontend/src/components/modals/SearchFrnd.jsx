@@ -80,13 +80,13 @@ const SearchFrnd = () => {
                   className="bg-slate-200 rounded-lg flex flex-col p-2 mb-2 cursor-pointer"
                   onClick={() => createChatHandler(item._id)}
                 >
-                  <ProfileCard name={item.name} />
+                  <ProfileCard name={item?.name} />
                 </div>
               ))
             : inputText && <p className="text-xl ">No match found!</p>}
         </div>
       </DialogContent>
-      {mutation.error && <div>{mutation.error.response.data.message}</div>}
+      {mutation.error && <div>{mutation.error?.response?.data?.message}</div>}
     </Dialog>
   );
 };

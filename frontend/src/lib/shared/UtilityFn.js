@@ -1,7 +1,15 @@
-
+// checking is my msg or not
 export const checkIsMe = (msg, user) => msg?.sender === user._id;
+// checking is me or not
+export const isMe = (user, activeUser) => {
+  if (user?._id === activeUser._id) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
-export const friend = ({item, activeUser}) =>
+export const friend = ({ item, activeUser }) =>
   item?.users?.find((usr) => usr._id !== activeUser?._id);
 
 export const formatTimeFromISOString = (isoString) => {
@@ -19,8 +27,8 @@ export const scrollToBottom = (containerRef) => {
   }
 };
 
-export const logOut = ({setActiveUser, navigate, setSelectedChat}) => {
-  setSelectedChat()
+export const logOut = ({ setActiveUser, navigate, setSelectedChat }) => {
+  setSelectedChat();
   setActiveUser();
   localStorage.clear();
   navigate("/login");

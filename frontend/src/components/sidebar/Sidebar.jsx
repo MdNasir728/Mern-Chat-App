@@ -3,24 +3,17 @@ import { fetchChatList } from "@/hooks/useFetchChats";
 import FriendCard from "@/lib/FriendCard/FriendCard";
 import { friend } from "@/lib/shared/UtilityFn";
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
 
 const Sidebar = () => {
   const { activeUser } = useContext(Context);
-  const navigate = useNavigate();
-
-  const { data: chatList, isLoading } = useQuery({
+  const { data: chatList } = useQuery({
     queryKey: ["chatList"],
     queryFn: () => fetchChatList({ activeUser }),
   });
 
-  // useEffect(() => {
-  //   refetch;
-  // }, [activeUser]);
-
   return (
-    <div className="bg-blue-200 w-2/4 rounded-lg overflow-y-scroll p-2">
+    <>
       {chatList?.length > 0 &&
         chatList?.map((item) => {
           return (
@@ -32,8 +25,8 @@ const Sidebar = () => {
             />
           );
         })}
-    </div>
+    </>
   );
 };
 
-export default Sidebar;
+export default React.memo(Sidebar);

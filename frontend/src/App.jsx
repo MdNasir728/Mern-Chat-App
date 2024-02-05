@@ -13,20 +13,21 @@ function App() {
     <div className="flex justify-center items-center w-screen h-screen bg-[url('./assets/home-bg.jpg')]">
       <QueryClientProvider client={queryClient}>
         <Routes>
+          <Route path="/" exact element={<Navigate to={"/chats"} />} />
           <Route
-            path="/"
+            path="/chats"
             element={activeUser ? <Layout /> : <Navigate to={"/login"} />}
           >
             <Route index element={<Home />} />
-            <Route path='/:chatId' element={<Home />} />
+            <Route path="/chats/:chatId" element={<Home />} />
           </Route>
           <Route
             path="/login"
-            element={!activeUser ? <Login /> : <Navigate to={"/"} />}
+            element={!activeUser ? <Login /> : <Navigate to={"/chats"} />}
           />
           <Route
             path="/signup"
-            element={!activeUser ? <Signup /> : <Navigate to={"/"} />}
+            element={!activeUser ? <Signup /> : <Navigate to={"/chats"} />}
           />
         </Routes>
       </QueryClientProvider>

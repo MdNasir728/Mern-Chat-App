@@ -1,7 +1,8 @@
 const User = require("../models/userModel");
-const validator = require('validator')
+const validator = require("validator");
 const createJWT = require("../createJWT");
 const bcrypt = require("bcrypt");
+const Message = require("../models/messageModel");
 
 const fetchUser = async (req, res) => {
   const { _id } = req.user;
@@ -29,15 +30,16 @@ const fetchUser = async (req, res) => {
   }
 };
 
-
-// controller for deleting user 
+// controller for deleting user
 
 const updateUser = async (req, res) => {
   const { password, confirmPassword, newName, newEmail } = req.body;
   const { id } = req.params;
   // Check if password and confirm password match
   if (password !== confirmPassword) {
-    return res.status(400).json({ message: "Password and confirm password do not match" });
+    return res
+      .status(400)
+      .json({ message: "Password and confirm password do not match" });
   }
 
   try {
@@ -74,13 +76,17 @@ const updateUser = async (req, res) => {
 
     const TOKEN = createJWT(user._id);
 
-    res.status(201).json({ name:newName, email:newEmail,_id: user._id, TOKEN  , message : 'Profile updated successfully'});
+    res.status(201).json({
+      name: newName,
+      email: newEmail,
+      _id: user._id,
+      TOKEN,
+      message: "Profile updated successfully",
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
-
-
 
 // controller for deleting user
 
@@ -88,6 +94,12 @@ const deleteUser = async (req, res) => {
   const { id } = req.params;
   try {
     const response = await User.findOneAndDelete({ _id: id });
+    if (response) {
+      await Chat.deleteMany({
+        users: { $elemMatch: { $eq: id } },
+      });
+      await Message.deleteMany({ _id: id });
+    }
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ error: error.message });

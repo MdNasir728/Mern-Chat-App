@@ -14,14 +14,10 @@ import {
 import { useGetChatMessage } from "@/hooks/useGetChatMessage.js";
 import { onSuccess, useSendMessage } from "@/hooks/useSendMessage.js";
 import { socketIO } from "@/lib/shared/socketIO.js";
-import { useParams } from "react-router-dom";
 
 const ChatArea = () => {
   const [chatMessage, setChatMessage] = useState([]);
   const { activeUser, selectedChat } = useContext(Context);
-
-const params = useParams()
-console.log(params)
 
   const containerRef = useRef(null);
   const inputMsgRef = useRef("");
@@ -59,8 +55,8 @@ console.log(params)
     scrollToBottom(containerRef);
   }, [chatMessage]); // Scroll when messages change
 
-  return (
-    <div className="flex flex-col bg-yellow-50 w-full h-full rounded-lg overflow-hidden relative">
+  return selectedChat ? (
+    <>
       <Topbar />
       <section
         ref={containerRef}
@@ -99,7 +95,11 @@ console.log(params)
           />
         </Button>
       </section>
-    </div>
+    </>
+  ) : (
+    <p className="bg-yellow-50 max-sm:w-full w-full h-full rounded-lg overflow-hidden relative text-center  font-mono text-2xl">
+      Click on any chat!
+    </p>
   );
 };
 

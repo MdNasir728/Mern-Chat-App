@@ -27,6 +27,9 @@ code {
 a{
   text-decoration: none;
 }
+.active{
+  background-color: rgb(4, 81, 126);
+}
 
 @layer utilities {
   .custom {

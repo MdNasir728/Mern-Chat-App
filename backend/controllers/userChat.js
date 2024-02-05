@@ -41,7 +41,18 @@ const userChat = async (req, res) => {
       res.status(200).json(response);
     }
   } catch (error) {
-    res.status(400).json({message: error.message});
+    res.status(400).json({ message: error.message });
   }
 };
-module.exports = { userChat, fetchUserChat };
+
+const deleteChat = async (req, res) => {
+  const { chatId } = req.params;
+  try {
+    const response = await await Chat.deleteOne({ _id: chatId });
+    res.status(200).json({ message: "Chat deleted successfully" });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+module.exports = { userChat, fetchUserChat , deleteChat};
