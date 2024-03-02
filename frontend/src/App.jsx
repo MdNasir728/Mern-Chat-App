@@ -4,7 +4,7 @@ import Login from "./pages/Login/Login.jsx";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Context } from "./context/UserContext.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Layout from "./layout.jsx";
+import Layout from "./Layout.jsx";
 import Signup from "./pages/Signup/Signup.jsx";
 const queryClient = new QueryClient();
 function App() {
