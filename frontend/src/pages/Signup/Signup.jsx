@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button.jsx";
 import { Input } from "@/components/ui/input";
 import { onSuccess, mutationFn } from "@/hooks/useSignUp";
+import { useForm } from "react-hook-form";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const Signup = () => {
         <FormField
           className="w-full"
           control={form.control}
-          name="Name"
+          name="name"
           render={({ field }) => (
             <FormItem className="w-full">
               <FormLabel className="text-lg text-gray-300 ">Name</FormLabel>
@@ -113,7 +114,7 @@ const Signup = () => {
             <Link to={"/login"}>Sign In</Link>
           </Button>
         </div>
-        {<div>{error && <p>{error.response.data.message}</p>}</div>}
+        {<div className="text-white font-xl">{error && <p>{error.response.data.message}</p>}</div>}
       </form>
     </Form>
   );

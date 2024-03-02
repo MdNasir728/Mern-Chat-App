@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const handleDeleteAccount = async (activeUser) => {
+export const useDeleteAccount = async (activeUser) => {
   const { data } = await axios.delete(
     `http://localhost:5000/api/user/${activeUser?._id}`,
     {
@@ -13,9 +13,7 @@ export const handleDeleteAccount = async (activeUser) => {
   return data
 };
 export const onSuccess = ({ data, setActiveUser, navigate }) => {
-  if (data) {
     localStorage.clear();
     setActiveUser();
     navigate("/signup");
-  }
 };

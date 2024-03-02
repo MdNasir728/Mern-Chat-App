@@ -19,7 +19,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSearchFriend } from "@/hooks/useSearchFriend";
 import { Context } from "@/context/UserContext";
 import ProfileCard from "@/lib/ProfileCard/ProfileCard";
-import { onSuccess, useCreateNewChat } from "@/hooks/useCreateNewChat";
+import { useCreateNewChat } from "@/hooks/useCreateNewChat";
 import { useNavigate } from "react-router-dom";
 const SearchFrnd = () => {
   const [inputText, setInputText] = useState("");
@@ -28,13 +28,13 @@ const SearchFrnd = () => {
   const queryClient = useQueryClient();
 
   //for creating new chat
-  const mutation = useMutation({
+  const { mutate: mutation } = useMutation({
     mutationFn: useCreateNewChat,
-    onSuccess: (data) =>
-      onSuccess({ navigate, data, setSelectedChat, queryClient }),
+    // onSuccess: (data) =>
+    //   onSuccess({ navigate, data, setSelectedChat, queryClient }),
   });
   const createChatHandler = (userId) => {
-    mutation.mutate({ userId, activeUser, setInputText });
+    mutation({ userId, activeUser, setInputText,navigate, setSelectedChat });
   };
 
   // for searching new friend
@@ -86,7 +86,6 @@ const SearchFrnd = () => {
             : inputText && <p className="text-xl ">No match found!</p>}
         </div>
       </DialogContent>
-      {mutation.error && <div>{mutation.error?.response?.data?.message}</div>}
     </Dialog>
   );
 };

@@ -3,18 +3,21 @@ import { fetchChatList } from "@/hooks/useFetchChats";
 import FriendCard from "@/lib/FriendCard/FriendCard";
 import { friend } from "@/lib/shared/UtilityFn";
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 const Sidebar = () => {
-  const { activeUser } = useContext(Context);
-  const { data: chatList } = useQuery({
+  const { activeUser, selectedChat } = useContext(Context);
+  const { data: chatList, refetch } = useQuery({
     queryKey: ["chatList"],
     queryFn: () => fetchChatList({ activeUser }),
   });
+  useEffect(()=>{
+    refetch()
+  }, [selectedChat])
 
   return (
     <>
-      {chatList?.length > 0 &&
+      {chatList?.length > 0 ? (
         chatList?.map((item) => {
           return (
             <FriendCard
@@ -24,7 +27,10 @@ const Sidebar = () => {
               lastMsg={item.lastMsg}
             />
           );
-        })}
+        })
+      ) : (
+        <p>Add friend to enjoy Snappy!</p>
+      )}
     </>
   );
 };

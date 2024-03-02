@@ -23,7 +23,6 @@ const setupSocketIO = (server) => {
 
     // Handle incoming messages
     socket.on("newMessage", (data) => {
-      console.log(`line 26 -- ${data.text}`)
       // Broadcast the message to all connected clients
       io.in(data.chatId).emit("receivedMessage", data);
     });

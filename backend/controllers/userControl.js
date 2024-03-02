@@ -3,6 +3,7 @@ const validator = require("validator");
 const createJWT = require("../createJWT");
 const bcrypt = require("bcrypt");
 const Message = require("../models/messageModel");
+const Chat = require("../models/chatModel");
 
 const fetchUser = async (req, res) => {
   const { _id } = req.user;
@@ -95,10 +96,21 @@ const deleteUser = async (req, res) => {
   try {
     const response = await User.findOneAndDelete({ _id: id });
     if (response) {
+      // all chats of the user
+      const chatsToDelete = await Chat.find({
+        users: { $elemMatch: { $eq: id } },
+      });
+
+      // get chat IDs to be delete
+      const chatIds = chatsToDelete.map((chat) => chat._id);
+
+      //  Delete all messages within the chats
+      await Message.deleteMany({ chatId: { $in: chatIds } });
+
+      // Delete all chats of the user
       await Chat.deleteMany({
         users: { $elemMatch: { $eq: id } },
       });
-      await Message.deleteMany({ _id: id });
     }
     res.status(200).json(response);
   } catch (error) {

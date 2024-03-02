@@ -97,7 +97,7 @@ const Login = () => {
             <Link to={"/signup"}>Sign Up</Link>
           </Button>
         </div>
-        {<div>{error && <p>{error.response.data.message}</p>}</div>}
+        {<div className="text-white font-xl">{error && <p>{error.response.data.message}</p>}</div>}
 
       </form>
     </Form>

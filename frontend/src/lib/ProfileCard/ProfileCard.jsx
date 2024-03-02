@@ -11,9 +11,9 @@ const ProfileCard = ({ name, lastMsg }) => {
           S
         </AvatarFallback>
       </Avatar>
-      <div className="flex flex-col justify-center ">
+      <div className="flex flex-col justify-center overflow-hidden ">
         <h1 className="font-bold text-voilet-500 mb-[-5px]">{name}</h1>
-        {lastMsg && <p className="text-sm text-ellipsis">{lastMsg}</p>}
+        {lastMsg && <p className="text-sm text-ellipsis text-nowrap overflow-hidden">{lastMsg}</p>}
       </div>
     </div>
   );

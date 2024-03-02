@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const useDeleteChat = async ({activeUser, chatId}) => {
+export const useDeleteChat = async ({ activeUser, chatId }) => {
   const { data } = await axios.delete(
     `http://localhost:5000/api/chat/${chatId}`,
     {
@@ -10,11 +10,10 @@ export const useDeleteChat = async ({activeUser, chatId}) => {
       },
     }
   );
-  return data
+  return data;
 };
-export const onSuccess = ({ data, navigate }) => {
-  if (data) {
-    localStorage.removeItem('Chat');
-    navigate("/chats");
-  }
+export const onSuccess = ({ navigate,setSelectedChat }) => {
+  setSelectedChat()
+  localStorage.removeItem("Chat");
+  navigate("/chats");
 };

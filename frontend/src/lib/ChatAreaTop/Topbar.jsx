@@ -20,13 +20,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 
 const Topbar = () => {
-  const { activeUser, selectedChat } = useContext(Context);
+  const { activeUser, selectedChat, setSelectedChat } = useContext(Context);
   const { chatId } = useParams();
   const navigate = useNavigate();
 
-  const { isPending, isIdle, mutate } = useMutation({
+  const { isPending, mutate } = useMutation({
     mutationFn: useDeleteChat,
-    onSuccess: (data) => onSuccess({ data, navigate }),
+    onSuccess: (data) => onSuccess({ data, navigate, setSelectedChat }),
   });
 
   const deleteChatHandler = () => {
@@ -65,9 +65,7 @@ const Topbar = () => {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction className="bg-red-600 hover:bg-red-800 border-2 border-orange-200 text-white">
-              <Button onClick={deleteChatHandler}>
-                {isIdle ? "Continue" : " wait..."}
-              </Button>
+              <Button onClick={deleteChatHandler}>Continue</Button>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

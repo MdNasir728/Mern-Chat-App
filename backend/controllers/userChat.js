@@ -31,28 +31,30 @@ const userChat = async (req, res) => {
       ],
     }).populate("users", "-password");
 
-    if (isChat.length > 0) {
-      res.status(200).json(isChat);
-    } else {
-      const response = await Chat.create({ users: [_id, id2] }).populate(
-        "User",
-        "-password"
-      );
+    if (!(isChat.length > 0)) {
+      const newChat = await Chat.create({ users: [_id, id2] });
+      const response = await Chat.findById(newChat._id).populate("users", "-password");
       res.status(200).json(response);
+    } else {
+      res.status(200).json(isChat);
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
 
+
 const deleteChat = async (req, res) => {
   const { chatId } = req.params;
   try {
-    const response = await await Chat.deleteOne({ _id: chatId });
+    const response = await Chat.deleteOne({ _id: chatId });
+    // if (response) {
+    //   await Message.deleteMany({ chatId });
+    // }
     res.status(200).json({ message: "Chat deleted successfully" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
 
-module.exports = { userChat, fetchUserChat , deleteChat};
+module.exports = { userChat, fetchUserChat, deleteChat };

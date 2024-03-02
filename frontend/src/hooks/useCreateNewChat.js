@@ -5,6 +5,7 @@ export const useCreateNewChat = async ({
   userId,
   activeUser,
   setInputText,
+  setSelectedChat,
 }) => {
   setInputText("");
   const { data } = await axios.post(
@@ -17,14 +18,16 @@ export const useCreateNewChat = async ({
       },
     }
   );
-  return data;
-};
-export const onSuccess = ({ navigate, data, setSelectedChat, queryClient }) => {
-  queryClient.invalidateQuery({ queryKey: ["chatList"] });
   const chatData = { _id: data._id, user: friend(data) };
   setSelectedChat(chatData);
-  // Store chatData as a string in local storage
-  localStorage.setItem("Chat", JSON.stringify(chatData));
 
-  navigate(`/${data._id}`);
+  return data;
 };
+// export const onSuccess = ({ navigate, data, setSelectedChat, queryClient }) => {
+//   queryClient.invalidateQuery({ queryKey: ["chatList"] });
+//   const chatData = { _id: data._id, user: friend(data) };
+//   setSelectedChat(chatData);
+//   // Store chatData as a string in local storage
+//   localStorage.setItem("Chat", JSON.stringify(chatData));
+//   navigate(`/chats/${data._id}`);
+// };

@@ -33,12 +33,13 @@ import { useContext} from "react";
 import { Context } from "@/context/UserContext";
 import { useToast } from "../ui/use-toast";
 import { isMe } from "@/lib/shared/UtilityFn";
+import { useDeleteAccount } from "@/hooks/useDeleteAccount";
 
 export const ProfileModal = ({ user }) => {
   const { activeUser, setActiveUser } = useContext(Context);
   const toast = useToast();
 
-  const flag = isMe(user, activeUser);
+  const flag = !isMe(user, activeUser);
 
   const form = useForm({
     defaultValues: {
