@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const mutationFn = async ({ user, action }) => {
   const response = await axios.post(
-    `https://mern-chat-app-6ml4.vercel.app//api/user/${action}`,
+    `https://mern-chat-app-6ml4.vercel.app/api/user/${action}`,
     {
       ...user,
       headers: { "Content-Type": "application/json" },
