@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const useDeleteAccount = async (activeUser) => {
   const { data } = await axios.delete(
-    `http://localhost:5000/api/user/${activeUser?._id}`,
+    `https://mern-chat-app-6ml4.vercel.app//api/user/${activeUser?._id}`,
     {
       headers: {
         "Content-Type": "application/json",

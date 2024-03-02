@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const useSendMessage = async ({ text, selectedChat, activeUser }) => {
-  const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = "https://mern-chat-app-6ml4.vercel.app/";
   const { data } = await axios.post(
     `${ENDPOINT}/api/message/${selectedChat?._id}`,
     { text },

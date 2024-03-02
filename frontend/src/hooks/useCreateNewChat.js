@@ -9,7 +9,7 @@ export const useCreateNewChat = async ({
 }) => {
   setInputText("");
   const { data } = await axios.post(
-    `http://localhost:5000/api/chat`,
+    `https://mern-chat-app-6ml4.vercel.app//api/chat`,
     { friendId: userId },
     {
       headers: {

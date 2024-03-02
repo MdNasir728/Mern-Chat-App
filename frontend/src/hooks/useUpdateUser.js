@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const mutationFn = async ({ user, activeUser }) => {
   const response = await axios.patch(
-    `http://localhost:5000/api/user/${activeUser._id}`,
+    `https://mern-chat-app-6ml4.vercel.app//api/user/${activeUser._id}`,
     { ...user },
     {
       headers: {

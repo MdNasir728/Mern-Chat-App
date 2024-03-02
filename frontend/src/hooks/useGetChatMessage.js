@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const useGetChatMessage = async (selectedChat, activeUser) => {
-  const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = "https://mern-chat-app-6ml4.vercel.app/";
 
   if (!selectedChat._id) return;
 

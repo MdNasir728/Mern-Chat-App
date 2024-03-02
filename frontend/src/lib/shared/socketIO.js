@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 
 
 export const socketIO = (setChatMessage, activeUser) => {
-    const ENDPOINT = "http://localhost:5000";
+    const ENDPOINT = "https://mern-chat-app-6ml4.vercel.app/";
 
   let socketRef = useRef();
 
